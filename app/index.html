@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunset Cover Studio — Vice-style poster maker</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="sun-mark" aria-hidden="true"></span>
+    <div>
+      <h1>Sunset Cover Studio</h1>
+      <p>Turn your photo into a Vice-style poster. Photos never leave your machine.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button id="shuffle" type="button" class="ghost">Shuffle poster</button>
+    <button id="reset" type="button" class="ghost">Reset</button>
+  </div>
+</header>
+<main class="app">
+  <aside class="controls" aria-label="Poster controls">
+    <section class="group">
+      <h2>1 · Photos</h2>
+      <label class="upload">Add your photos
+        <input id="photo-upload" type="file" accept="image/*" multiple>
+      </label>
+      <p class="hint">Or drop images onto the preview. Click a photo below to put it in the selected panel.</p>
+      <div id="library" class="library"></div>
+    </section>
+    <section class="group">
+      <h2>2 · Layout</h2>
+      <div class="button-row" role="group" aria-label="Panel layout">
+        <button type="button" data-layout="solo">Solo</button>
+        <button type="button" data-layout="duo-split">Duo · Split</button>
+        <button type="button" data-layout="duo-stack">Duo · Stack</button>
+        <button type="button" data-layout="trio-hero">Trio · Hero</button>
+        <button type="button" data-layout="trio-strip">Trio · Strip</button>
+        <button type="button" data-layout="quad-grid">Quad · Grid</button>
+        <button type="button" data-layout="quad-strip">Quad · Strip</button>
+      </div>
+      <p class="hint">One photo can fill every panel, or each panel can hold a different one.</p>
+    </section>
+    <section class="group">
+      <h2>3 · Selected panel</h2>
+      <p id="panel-label" class="panel-label">Panel 1 of 3</p>
+      <label>Photo in this panel
+        <select id="panel-photo"></select>
+      </label>
+      <label>Zoom <span class="range-value"><input id="panel-zoom" type="range" min="1" max="3" step="0.01" value="1"></span></label>
+      <label>Rotate <input id="panel-rotate" type="range" min="-30" max="30" step="1" value="0"></label>
+      <label>Move sideways <input id="panel-panx" type="range" min="-0.6" max="0.6" step="0.01" value="0"></label>
+      <label>Move up / down <input id="panel-pany" type="range" min="-0.6" max="0.6" step="0.01" value="0"></label>
+      <label class="check"><input id="panel-flip" type="checkbox"> Flip this photo</label>
+      <button id="fill-all" type="button" class="ghost">Fill all panels with this photo</button>
+      <p class="hint">Tip: click a panel in the preview to select it, drag to move its photo, scroll to zoom.</p>
+    </section>
+    <section class="group">
+      <h2>4 · Caption</h2>
+      <label>Title <input id="caption-title" type="text" maxlength="32" value="Sunset Heist"></label>
+      <label>Subtitle <input id="caption-subtitle" type="text" maxlength="40" value="Ocean Drive"></label>
+      <div class="field-row">
+        <label>Lettering
+          <select id="caption-font">
+            <option value="anton">Anton — tall &amp; bold</option>
+            <option value="bebas">Bebas Neue — poster caps</option>
+            <option value="archivo">Archivo Black — heavy</option>
+          </select>
+        </label>
+        <label>Place
+          <select id="caption-position">
+            <option value="bottom">Bottom</option>
+            <option value="top">Top</option>
+          </select>
+        </label>
+      </div>
+      <div class="button-row" role="group" aria-label="Lettering style">
+        <button type="button" data-font="anton">Anton</button>
+        <button type="button" data-font="bebas">Bebas</button>
+        <button type="button" data-font="archivo">Archivo</button>
+      </div>
+      <label>Title size <input id="caption-size" type="range" min="0.06" max="0.16" step="0.005" value="0.11"></label>
+      <label>Letter spacing <input id="caption-tracking" type="range" min="0" max="0.08" step="0.005" value="0.01"></label>
+      <div class="swatches" role="group" aria-label="Title colour">
+        <button type="button" data-colour="white" class="swatch sw-white" aria-label="White title">White</button>
+        <button type="button" data-colour="sunset" class="swatch sw-sunset" aria-label="Sunset gradient title">Sunset</button>
+        <button type="button" data-colour="neon" class="swatch sw-neon" aria-label="Neon gradient title">Neon</button>
+        <button type="button" data-colour="gold" class="swatch sw-gold" aria-label="Gold gradient title">Gold</button>
+      </div>
+      <label class="check"><input id="caption-outline" type="checkbox" checked> Dark outline</label>
+      <label class="check"><input id="caption-shadow" type="checkbox" checked> Drop shadow</label>
+      <label class="check"><input id="caption-uppercase" type="checkbox" checked> All capitals</label>
+    </section>
+    <section class="group">
+      <h2>5 · Colour grade</h2>
+      <div class="button-row" role="group" aria-label="Colour grade">
+        <button type="button" data-grade="sunset">Vice Sunset</button>
+        <button type="button" data-grade="neon">Neon Nights</button>
+        <button type="button" data-grade="golden">Golden Hour</button>
+        <button type="button" data-grade="noir">Palm Noir</button>
+        <button type="button" data-grade="mono">Mono Vice</button>
+      </div>
+      <label>Grade strength <input id="grade-strength" type="range" min="0" max="1" step="0.05" value="1"></label>
+    </section>
+    <section class="group">
+      <h2>6 · Poster extras</h2>
+      <label class="check"><input id="extra-sun" type="checkbox" checked> Retro striped sun</label>
+      <label class="check"><input id="extra-palms" type="checkbox" checked> Palm silhouettes</label>
+      <label class="check"><input id="extra-grain" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="extra-vignette" type="checkbox" checked> Vignette</label>
+      <label class="check"><input id="extra-frame" type="checkbox" checked> Poster frame</label>
+    </section>
+    <section class="group">
+      <h2>7 · Export</h2>
+      <div class="button-row" role="group" aria-label="Poster size">
+        <button type="button" data-size="1080x1080">Square</button>
+        <button type="button" data-size="1080x1350">Portrait</button>
+        <button type="button" data-size="1920x1080">Wide</button>
+      </div>
+      <button id="export-all" type="button" class="primary">Export all three sizes</button>
+      <div class="button-row">
+        <button type="button" data-export="1080x1080">PNG 1080 × 1080</button>
+        <button type="button" data-export="1080x1350">PNG 1080 × 1350</button>
+        <button type="button" data-export="1920x1080">PNG 1920 × 1080</button>
+      </div>
+      <button id="compare" type="button" class="ghost">Hold to compare — before / after</button>
+      <p id="status" role="status">Pick a layout, then export your poster.</p>
+    </section>
+  </aside>
+  <section id="stage" class="stage" aria-label="Live preview">
+    <canvas id="preview" width="760" height="760" aria-label="Live poster preview"></canvas>
+    <p class="stage-hint">Click a panel to select it · Drag to move the photo · Scroll to zoom</p>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
